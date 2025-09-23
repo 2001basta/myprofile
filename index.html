@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographie CV - Youssef Basta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Narrative & Structure Plan: The infographic tells the story of a proficient full-stack developer. It starts with a strong personal brand introduction (Header), immediately presents a compelling summary (Profile), then provides data-driven evidence of expertise through a skills visualization chart (Skills Dashboard). The core of the story is the Project Showcase, where recruiters can interactively explore tangible work. The narrative concludes with supporting background information presented clearly in a timeline (Formation) and simple visuals (Languages/Interests). This structure guides a recruiter from "who is this person?" to "what can they do?" and finally "show me the proof," which is the most effective flow for a technical evaluation. -->
+    <!-- Visualization & Content Choices: 
+    - Technical Skills -> Goal: Compare -> Horizontal Bar Chart (Chart.js/Canvas) -> Justification: This instantly visualizes the frequency of technology use across all projects, offering a quick, data-backed summary of core competencies. It's more impactful than a simple list for a quick evaluation.
+    - Projects -> Goal: Organize/Explore -> Filterable Card Grid with Modals (HTML/CSS/JS) -> Justification: A recruiter's time is valuable. Filtering allows them to instantly narrow down 9 projects to only those using technologies they care about (e.g., "Go"). Modals provide deep-dive information without cluttering the main interface.
+    - Formation -> Goal: Change (over time) -> Vertical Timeline (HTML/CSS) -> Justification: This is the universally understood and most effective way to present chronological information like education, showing clear progression.
+    - CONFIRMING NO SVG/Mermaid: All visuals are rendered using Chart.js on Canvas or structured HTML/CSS with Tailwind. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F8FB;
+            color: #004AAD;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 450px;
+            max-height: 60vh;
+        }
+        .filter-btn.active {
+            background-color: #004AAD;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <header class="text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-[#004AAD]">Youssef Basta</h1>
+            <p class="mt-3 text-2xl md:text-3xl font-medium text-[#0079C1]">Développeur Full Stack</p>
+            <div class="mt-8 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-base text-[#004AAD]">
+                <span>📧 bastayoussef2001@gmail.com</span>
+                <span>📞 0655903739</span>
+                <span>📍 Casablanca, Sidi Moumen</span>
+            </div>
+            <div class="mt-6 flex justify-center space-x-4">
+                <a href="https://linkedin.com/in/bastayoussef2001" target="_blank" class="bg-white text-[#0079C1] px-5 py-2 rounded-full font-semibold shadow-md hover:bg-[#0079C1] hover:text-white transition-colors duration-300">LinkedIn</a>
+                <a href="https://github.com/2001basta" target="_blank" class="bg-white text-[#0079C1] px-5 py-2 rounded-full font-semibold shadow-md hover:bg-[#0079C1] hover:text-white transition-colors duration-300">GitHub</a>
+                <a href="https://leetcode.com/basta2001" target="_blank" class="bg-white text-[#0079C1] px-5 py-2 rounded-full font-semibold shadow-md hover:bg-[#0079C1] hover:text-white transition-colors duration-300">LeetCode</a>
+            </div>
+        </header>
+
+        <main class="space-y-20">
+
+            <section id="profil">
+                <div class="card p-8 md:p-10 max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">Profil Professionnel</h2>
+                    <p class="text-lg text-[#0079C1] leading-relaxed">
+                        Développeur Full Stack motivé et passionné par le développement logiciel, avec une solide maîtrise des technologies back-end et front-end. Curieux, rigoureux et orienté résolution de problèmes, je cherche à intégrer une équipe dynamique pour contribuer au développement d’applications performantes et innovantes.
+                    </p>
+                </div>
+            </section>
+            
+            <section id="competences">
+                <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-4">Tableau de Bord des Compétences</h2>
+                <p class="text-center text-lg text-[#0079C1] mb-10 max-w-3xl mx-auto">Cette visualisation montre la fréquence d'utilisation des technologies clés à travers mes projets, mettant en lumière mon expérience pratique et mes domaines d'expertise principaux.</p>
+                <div class="card p-6 md:p-8">
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projets">
+                <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-4">Portfolio de Projets</h2>
+                 <p class="text-center text-lg text-[#0079C1] mb-10 max-w-3xl mx-auto">Explorez mes réalisations concrètes. Utilisez les filtres pour trier les projets par technologie et découvrir comment j'applique mes compétences pour créer des solutions robustes.</p>
+                <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-12">
+                    <button class="filter-btn active font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="all">Tous les projets</button>
+                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="Go">Go</button>
+                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="JavaScript">JavaScript</button>
+                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="Rust">Rust</button>
+                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="Docker">Docker</button>
+                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="WebSockets">WebSockets</button>
+                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="TCP/UDP">TCP/UDP</button>
+                </div>
+                <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+            </section>
+            
+            <section id="formation-langues" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-10">Parcours et Formation</h2>
+                    <div class="card p-8">
+                        <div class="relative border-l-4 border-[#93CDE4]">
+                             <div class="mb-10 ml-8">
+                                <div class="absolute w-5 h-5 bg-[#0079C1] rounded-full mt-1.5 -left-3 border-4 border-white"></div>
+                                <time class="mb-1 text-sm font-normal leading-none text-[#41A5D3]">2024 – Aujourd’hui</time>
+                                <h3 class="text-lg font-semibold text-[#004AAD]">Formation en développement</h3>
+                                <p class="text-base font-normal text-[#0079C1]">Zone 01 Oujda</p>
+                            </div>
+                            <div class="mb-10 ml-8">
+                                <div class="absolute w-5 h-5 bg-[#0079C1] rounded-full mt-1.5 -left-3 border-4 border-white"></div>
+                                <time class="mb-1 text-sm font-normal leading-none text-[#41A5D3]">2022 – 2023</time>
+                                <h3 class="text-lg font-semibold text-[#004AAD]">Licence en Chimie</h3>
+                                <p class="text-base font-normal text-[#0079C1]">Faculté des Sciences Ben M’Sick</p>
+                            </div>
+                            <div class="ml-8">
+                                <div class="absolute w-5 h-5 bg-[#0079C1] rounded-full mt-1.5 -left-3 border-4 border-white"></div>
+                                <time class="mb-1 text-sm font-normal leading-none text-[#41A5D3]">2018 – 2019</time>
+                                <h3 class="text-lg font-semibold text-[#004AAD]">Baccalauréat Sciences Physiques</h3>
+                                <p class="text-base font-normal text-[#0079C1]">Lycée Khadija Oum Al Mouninine</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div>
+                    <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-10">Langues & Intérêts</h2>
+                    <div class="card p-8 space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#004AAD] mb-4 text-center">Langues</h3>
+                            <div class="space-y-4">
+                                <p class="font-semibold">Arabe : <span class="font-normal text-[#0079C1]">Langue maternelle</span></p>
+                                <p class="font-semibold">Français : <span class="font-normal text-[#0079C1]">Professionnel</span></p>
+                                <p class="font-semibold">Anglais : <span class="font-normal text-[#0079C1]">Moyen</span></p>
+                            </div>
+                        </div>
+                         <div>
+                            <h3 class="text-2xl font-bold text-[#004AAD] mb-4 text-center">Centres d’intérêt</h3>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                <span class="bg-[#93CDE4] text-[#004AAD] text-sm font-medium px-3 py-1.5 rounded-full">Veille technologique</span>
+                                <span class="bg-[#93CDE4] text-[#004AAD] text-sm font-medium px-3 py-1.5 rounded-full">Problem solving & algorithmie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="display: none;">
+        <div class="fixed inset-0 bg-black bg-opacity-60 transition-opacity duration-300" id="modal-backdrop"></div>
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <h3 id="modal-title" class="text-2xl font-bold text-[#004AAD]"></h3>
+                    <button id="modal-close" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+                </div>
+                <div id="modal-tech" class="mt-2 mb-4 flex flex-wrap gap-2"></div>
+                <p id="modal-description" class="text-[#0079C1]"></p>
+                <h4 class="font-bold text-[#004AAD] mt-6 mb-2">Compétences clés démontrées :</h4>
+                <p id="modal-skills" class="text-[#0079C1]"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    const projectsData = [
+            {id: 1, title: "Social Network", technologies: ["Go", "JS Framework", "SQLite", "Docker", "WebSockets"], description: "Backend en Go avec gestion d’authentification par sessions + cookies. Base de données SQLite avec migrations pour gérer la structure. Relations complexes (utilisateurs, followers, groupes, notifications). WebSockets pour le chat et les notifications en temps réel. Docker multi-container pour isoler frontend et backend.", skills: "Auth sécurisée, conception de base relationnelle, migrations DB, communication temps réel via WebSockets, conteneurisation."},
+            {id: 2, title: "Real-Time Forum", technologies: ["Go", "JavaScript", "WebSockets"], description: "Forum avec messagerie instantanée, backend en Go et frontend JS pur SPA. Gestion des WebSockets, sessions sécurisées, hashing des mots de passe. Notifications temps réel et optimisation du scroll.", skills: "Gestion du temps réel, authentification sécurisée, optimisation frontend, validation des inputs."},
+            {id: 3, title: "Mini-Framework", technologies: ["JavaScript"], description: "Framework maison sans React/Vue avec DOM virtuel, routing et gestion d’état global. Event handling personnalisé pour interactions utilisateurs.", skills: "Compréhension avancée des frameworks JS, gestion de l’état global, architecture modulaire, documentation."},
+            {id: 4, title: "Bomberman-DOM", technologies: ["JavaScript", "WebSockets"], description: "Jeu multijoueur dans le navigateur avec rendu DOM et animations 60 FPS. Synchronisation multi-joueurs via WebSockets, chat intégré et mécaniques de jeu complexes.", skills: "Programmation de jeux navigateur, optimisation DOM, logique temps réel, gestion des états joueurs."},
+            {id: 5, title: "0-Shell", technologies: ["Rust", "System Programming", "Unix"], description: "Shell Unix minimal avec parsing et exécution de commandes via syscalls. Gestion des processus, commandes classiques et erreurs système.", skills: "Programmation système bas niveau, gestion des processus Unix, sécurité mémoire via Rust."},
+            {id: 6, title: "Push-Swap", technologies: ["Go"], description: "Tri d’une pile d’entiers avec algorithmes optimisés (radix sort, quicksort adapté, insertion sort). Gestion des erreurs et minimisation des opérations.", skills: "Optimisation d’algorithmes, gestion des structures de données, résolution de problèmes complexe."},
+            {id: 7, title: "Lem-in", technologies: ["Go"], description: "Simulation de passage de fourmis avec parsing de fichier, algorithmes BFS et max flow. Optimisation des chemins, gestion des contraintes et erreurs.", skills: "Algorithmes avancés sur graphes, optimisation des flux, gestion des contraintes."},
+            {id: 8, title: "GraphQL API", technologies: ["JavaScript", "GraphQL"], description: "Création de profils utilisateurs avec queries GraphQL, authentification JWT. Requêtes complexes, hébergement Netlify/GitHub Pages.", skills: "Maîtrise GraphQL, authentification sécurisée JWT, visualisation de données dynamique."},
+            {id: 9, title: "Wget", technologies: ["Go"], description: "Reproduction de wget avec options avancées, HTTP requests, téléchargement asynchrone et parsing HTML.", skills: "Programmation réseau, concurrence, gestion fichiers et parsing HTML."},
+            {id: 10, title: "Net-Cat", technologies: ["Go", "TCP/UDP"], description: "Recréation de NetCat en architecture client-serveur. Serveur TCP multi-clients (max 10), écoute sur port spécifié (par défaut 8989). Envoi et réception de messages identifiés par timestamp et nom d’utilisateur. Historique des messages envoyé aux nouveaux clients. Notifications des clients rejoignant ou quittant le chat. Gestion obligatoire et validation des noms d’utilisateur.", skills: "TCP/UDP et gestion de sockets en Go. Concurrence avec goroutines, channels et mutexes. Gestion de l’état partagé et propagation des messages en temps réel. Formatage structuré des messages et notifications."},
+            {id: 11, title: "Smart-Road", technologies: ["Rust"], description: "Simulation de gestion intelligente d’intersections pour véhicules autonomes (AVs), sans feux de circulation. Algorithme de contrôle de trafic pour minimiser collisions et congestion. Animation dynamique des véhicules avec rotation et déplacement réaliste. Commandes clavier pour générer des véhicules de manière interactive et aléatoire. Statistiques en fin de simulation : vitesse max/min, temps max/min pour passer l’intersection, véhicules et quasi-accidents.", skills: "Programmation en Rust et utilisation de SDL2 pour animation. Algorithmique avancée pour gestion de trafic et sécurité. Simulation temps réel et manipulation d’événements. Mathématiques appliquées à la physique des véhicules et calculs de distance/temps. Conception et optimisation d’une interface interactive et visuelle."}
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const projectGrid = document.getElementById('project-grid');
+        const projectFilters = document.getElementById('project-filters');
+        const modal = document.getElementById('project-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContent = document.getElementById('modal-content');
+        const modalClose = document.getElementById('modal-close');
+        
+        function renderProjects(filter = 'all') {
+            projectGrid.innerHTML = '';
+            const filteredProjects = filter === 'all' ? projectsData : projectsData.filter(p => p.technologies.some(t => t.toLowerCase().includes(filter.toLowerCase())));
+
+            filteredProjects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'card p-6 flex flex-col';
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold text-[#004AAD] mb-2">${project.title}</h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${project.technologies.map(tech => `<span class="bg-[#E0F2FE] text-[#0079C1] text-xs font-semibold px-2.5 py-1 rounded-full">${tech}</span>`).join('')}
+                    </div>
+                    <p class="text-[#0079C1] text-sm flex-grow mb-4">${project.description.substring(0, 100)}...</p>
+                    <button class="open-modal-btn mt-auto text-white bg-[#0079C1] hover:bg-[#004AAD] font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-300" data-id="${project.id}">Voir Détails</button>
+                `;
+                projectGrid.appendChild(card);
+            });
+        }
+
+        projectFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const currentActive = projectFilters.querySelector('.filter-btn.active');
+                if (currentActive) {
+                    currentActive.classList.remove('active');
+                }
+                e.target.classList.add('active');
+                renderProjects(e.target.dataset.filter);
+            }
+        });
+
+        const openModal = (projectId) => {
+            const project = projectsData.find(p => p.id == projectId);
+            if (!project) return;
+            
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-tech').innerHTML = project.technologies.map(tech => `<span class="bg-[#E0F2FE] text-[#0079C1] text-sm font-semibold px-3 py-1 rounded-full">${tech}</span>`).join('');
+            document.getElementById('modal-description').textContent = project.description;
+            document.getElementById('modal-skills').textContent = project.skills;
+
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modalBackdrop.style.opacity = '1';
+                modalContent.style.opacity = '1';
+                modalContent.style.transform = 'scale(1)';
+            }, 10);
+        };
+
+        const closeModal = () => {
+            modalBackdrop.style.opacity = '0';
+            modalContent.style.opacity = '0';
+            modalContent.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        };
+
+        projectGrid.addEventListener('click', e => {
+            if (e.target.classList.contains('open-modal-btn')) {
+                openModal(e.target.dataset.id);
+            }
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+
+        const techCounts = projectsData.flatMap(p => p.technologies).reduce((acc, tech) => {
+            const cleanTech = tech.replace('JS Framework', 'JavaScript').replace('System Programming', 'Sys Prog');
+            acc[cleanTech] = (acc[cleanTech] || 0) + 1;
+            return acc;
+        }, {});
+
+        const sortedTech = Object.entries(techCounts).sort(([,a],[,b]) => b-a);
+        const chartLabels = sortedTech.map(item => item[0]);
+        const chartData = sortedTech.map(item => item[1]);
+        
+        const ctx = document.getElementById('skillsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Utilisation dans les projets',
+                    data: chartData,
+                    backgroundColor: '#41A5D3',
+                    borderColor: '#0079C1',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, ticks: { stepSize: 1, color: '#0079C1' }, grid: { color: '#E0F2FE' } },
+                    y: { ticks: { color: '#004AAD', font: { weight: '600' } }, grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#004AAD',
+                        titleFont: { size: 16, weight: 'bold' },
+                        bodyFont: { size: 14 },
+                        padding: 12,
+                        cornerRadius: 8,
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        renderProjects();
+    });
+    </script>
+</body>
+</html>
