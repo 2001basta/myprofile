@@ -3,315 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographie CV - Youssef Basta</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Brilliant Blues -->
-    <!-- Narrative & Structure Plan: The infographic tells the story of a proficient full-stack developer. It starts with a strong personal brand introduction (Header), immediately presents a compelling summary (Profile), then provides data-driven evidence of expertise through a skills visualization chart (Skills Dashboard). The core of the story is the Project Showcase, where recruiters can interactively explore tangible work. The narrative concludes with supporting background information presented clearly in a timeline (Formation) and simple visuals (Languages/Interests). This structure guides a recruiter from "who is this person?" to "what can they do?" and finally "show me the proof," which is the most effective flow for a technical evaluation. -->
-    <!-- Visualization & Content Choices: 
-    - Technical Skills -> Goal: Compare -> Horizontal Bar Chart (Chart.js/Canvas) -> Justification: This instantly visualizes the frequency of technology use across all projects, offering a quick, data-backed summary of core competencies. It's more impactful than a simple list for a quick evaluation.
-    - Projects -> Goal: Organize/Explore -> Filterable Card Grid with Modals (HTML/CSS/JS) -> Justification: A recruiter's time is valuable. Filtering allows them to instantly narrow down 9 projects to only those using technologies they care about (e.g., "Go"). Modals provide deep-dive information without cluttering the main interface.
-    - Formation -> Goal: Change (over time) -> Vertical Timeline (HTML/CSS) -> Justification: This is the universally understood and most effective way to present chronological information like education, showing clear progression.
-    - CONFIRMING NO SVG/Mermaid: All visuals are rendered using Chart.js on Canvas or structured HTML/CSS with Tailwind. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F0F8FB;
-            color: #004AAD;
-        }
-        .card {
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 450px;
-            max-height: 60vh;
-        }
-        .filter-btn.active {
-            background-color: #004AAD;
-            color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-    </style>
+    <title>Basta Youssef - Développeur Full-Stack</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="antialiased">
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
-        <header class="text-center mb-16">
-            <h1 class="text-5xl md:text-6xl font-extrabold text-[#004AAD]">Youssef Basta</h1>
-            <p class="mt-3 text-2xl md:text-3xl font-medium text-[#0079C1]">Développeur Full Stack</p>
-            <div class="mt-8 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-base text-[#004AAD]">
-                <span>📧 bastayoussef2001@gmail.com</span>
-                <span>📞 0655903739</span>
-                <span>📍 Casablanca, Sidi Moumen</span>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Basta Youssef</span>
             </div>
-            <div class="mt-6 flex justify-center space-x-4">
-                <a href="https://linkedin.com/in/bastayoussef2001" target="_blank" class="bg-white text-[#0079C1] px-5 py-2 rounded-full font-semibold shadow-md hover:bg-[#0079C1] hover:text-white transition-colors duration-300">LinkedIn</a>
-                <a href="https://github.com/2001basta" target="_blank" class="bg-white text-[#0079C1] px-5 py-2 rounded-full font-semibold shadow-md hover:bg-[#0079C1] hover:text-white transition-colors duration-300">GitHub</a>
-                <a href="https://leetcode.com/basta2001" target="_blank" class="bg-white text-[#0079C1] px-5 py-2 rounded-full font-semibold shadow-md hover:bg-[#0079C1] hover:text-white transition-colors duration-300">LeetCode</a>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Accueil</a>
+                <a href="#about" class="nav-link">À propos</a>
+                <a href="#projects" class="nav-link">Projets</a>
+                <a href="#skills" class="nav-link">Compétences</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-        </header>
+            <div class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-        <main class="space-y-20">
-
-            <section id="profil">
-                <div class="card p-8 md:p-10 max-w-4xl mx-auto text-center">
-                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">Profil Professionnel</h2>
-                    <p class="text-lg text-[#0079C1] leading-relaxed">
-                        Développeur Full Stack motivé et passionné par le développement logiciel, avec une solide maîtrise des technologies back-end et front-end. Curieux, rigoureux et orienté résolution de problèmes, je cherche à intégrer une équipe dynamique pour contribuer au développement d’applications performantes et innovantes.
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="greeting">Bonjour, je suis</span>
+                        <span class="name">Basta Youssef</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        <span id="typed-text"></span>
+                        <span class="cursor">|</span>
                     </p>
-                </div>
-            </section>
-            
-            <section id="competences">
-                <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-4">Tableau de Bord des Compétences</h2>
-                <p class="text-center text-lg text-[#0079C1] mb-10 max-w-3xl mx-auto">Cette visualisation montre la fréquence d'utilisation des technologies clés à travers mes projets, mettant en lumière mon expérience pratique et mes domaines d'expertise principaux.</p>
-                <div class="card p-6 md:p-8">
-                    <div class="chart-container">
-                        <canvas id="skillsChart"></canvas>
+                    <p class="hero-description">
+                        Développeur Full-Stack passionné par les technologies modernes et l'innovation. 
+                        Spécialisé en Go, Rust, JavaScript et architectures distribuées.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+                        <a href="#contact" class="btn btn-secondary">Me contacter</a>
                     </div>
                 </div>
-            </section>
-
-            <section id="projets">
-                <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-4">Portfolio de Projets</h2>
-                 <p class="text-center text-lg text-[#0079C1] mb-10 max-w-3xl mx-auto">Explorez mes réalisations concrètes. Utilisez les filtres pour trier les projets par technologie et découvrir comment j'applique mes compétences pour créer des solutions robustes.</p>
-                <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-12">
-                    <button class="filter-btn active font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="all">Tous les projets</button>
-                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="Go">Go</button>
-                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="JavaScript">JavaScript</button>
-                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="Rust">Rust</button>
-                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="Docker">Docker</button>
-                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="WebSockets">WebSockets</button>
-                    <button class="filter-btn font-medium px-4 py-2 rounded-full bg-white shadow-sm hover:shadow-md transition text-sm" data-filter="TCP/UDP">TCP/UDP</button>
-                </div>
-                <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
-            </section>
-            
-            <section id="formation-langues" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                <div>
-                    <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-10">Parcours et Formation</h2>
-                    <div class="card p-8">
-                        <div class="relative border-l-4 border-[#93CDE4]">
-                             <div class="mb-10 ml-8">
-                                <div class="absolute w-5 h-5 bg-[#0079C1] rounded-full mt-1.5 -left-3 border-4 border-white"></div>
-                                <time class="mb-1 text-sm font-normal leading-none text-[#41A5D3]">2024 – Aujourd’hui</time>
-                                <h3 class="text-lg font-semibold text-[#004AAD]">Formation en développement</h3>
-                                <p class="text-base font-normal text-[#0079C1]">Zone 01 Oujda</p>
-                            </div>
-                            <div class="mb-10 ml-8">
-                                <div class="absolute w-5 h-5 bg-[#0079C1] rounded-full mt-1.5 -left-3 border-4 border-white"></div>
-                                <time class="mb-1 text-sm font-normal leading-none text-[#41A5D3]">2022 – 2023</time>
-                                <h3 class="text-lg font-semibold text-[#004AAD]">Licence en Chimie</h3>
-                                <p class="text-base font-normal text-[#0079C1]">Faculté des Sciences Ben M’Sick</p>
-                            </div>
-                            <div class="ml-8">
-                                <div class="absolute w-5 h-5 bg-[#0079C1] rounded-full mt-1.5 -left-3 border-4 border-white"></div>
-                                <time class="mb-1 text-sm font-normal leading-none text-[#41A5D3]">2018 – 2019</time>
-                                <h3 class="text-lg font-semibold text-[#004AAD]">Baccalauréat Sciences Physiques</h3>
-                                <p class="text-base font-normal text-[#0079C1]">Lycée Khadija Oum Al Mouninine</p>
-                            </div>
+                <div class="hero-visual">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="code-content">
+                            <div class="code-line"><span class="keyword">package</span> <span class="string">main</span></div>
+                            <div class="code-line"><span class="keyword">func</span> <span class="function">main</span>() {</div>
+                            <div class="code-line indent"><span class="function">fmt.Println</span>(<span class="string">"Bienvenue!"</span>)</div>
+                            <div class="code-line">}</div>
                         </div>
                     </div>
                 </div>
-                 <div>
-                    <h2 class="text-4xl font-bold text-center text-[#004AAD] mb-10">Langues & Intérêts</h2>
-                    <div class="card p-8 space-y-8">
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">À propos de moi</h2>
+            <div class="about-content">
+                <div class="about-info">
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h3 class="text-2xl font-bold text-[#004AAD] mb-4 text-center">Langues</h3>
-                            <div class="space-y-4">
-                                <p class="font-semibold">Arabe : <span class="font-normal text-[#0079C1]">Langue maternelle</span></p>
-                                <p class="font-semibold">Français : <span class="font-normal text-[#0079C1]">Professionnel</span></p>
-                                <p class="font-semibold">Anglais : <span class="font-normal text-[#0079C1]">Moyen</span></p>
-                            </div>
+                            <h3>Localisation</h3>
+                            <p>Casablanca, Sidi Moumen</p>
                         </div>
-                         <div>
-                            <h3 class="text-2xl font-bold text-[#004AAD] mb-4 text-center">Centres d’intérêt</h3>
-                            <div class="flex flex-wrap justify-center gap-3">
-                                <span class="bg-[#93CDE4] text-[#004AAD] text-sm font-medium px-3 py-1.5 rounded-full">Veille technologique</span>
-                                <span class="bg-[#93CDE4] text-[#004AAD] text-sm font-medium px-3 py-1.5 rounded-full">Problem solving & algorithmie</span>
-                            </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Téléphone</h3>
+                            <p>0655903739</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>bastayoussef2001@gmail.com</p>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
-        </main>
-    </div>
-
-    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="display: none;">
-        <div class="fixed inset-0 bg-black bg-opacity-60 transition-opacity duration-300" id="modal-backdrop"></div>
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
-            <div class="p-6">
-                <div class="flex justify-between items-start">
-                    <h3 id="modal-title" class="text-2xl font-bold text-[#004AAD]"></h3>
-                    <button id="modal-close" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Compétences techniques</h2>
+            <div class="skills-radar-container">
+                <div class="textCenter-01 w29p-01 ph10-01">
+                    <svg style="overflow: visible;" width="100%" height="100%" viewBox="0 0 400 400" class="mv6-01">
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="20"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="40"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="60"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="80"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="100"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="120"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="140"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="160"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="180"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="200"></circle>
+                        <path stroke-width="0" stroke="none" fill="var(--primary-color)" d="M 200 30L 249.49747468305833 150.50252531694167L 220 200L 277.78174593052023 277.78174593052023L 200 310L 185.85786437626905 214.14213562373095L 160 200L 157.57359312880715 157.57359312880715" style="transition: d 0.5s ease-in-out; opacity: 0.7;"></path>
+                        <g><line x1="200" y1="0" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="200" cy="180" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="160" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="140" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="120" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="100" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="80" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="60" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="40" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="20" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="0" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="341.4213562373095" y1="58.57864376269052" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="214.14213562373095" cy="185.85786437626905" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="228.2842712474619" cy="171.7157287525381" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="242.42640687119285" cy="157.57359312880715" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="256.5685424949238" cy="143.4314575050762" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="270.71067811865476" cy="129.28932188134524" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="284.8528137423857" cy="115.14718625761431" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="298.99494936611666" cy="101.00505063388336" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="313.1370849898476" cy="86.8629150101524" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="327.27922061357856" cy="72.72077938642146" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="341.4213562373095" cy="58.57864376269052" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="400" y1="200" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="220" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="240" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="260" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="280" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="300" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="320" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="340" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="360" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="380" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="400" cy="200" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="341.4213562373095" y1="341.4213562373095" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="214.14213562373095" cy="214.14213562373095" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="228.2842712474619" cy="228.2842712474619" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="242.42640687119285" cy="242.42640687119285" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="256.5685424949238" cy="256.5685424949238" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="270.71067811865476" cy="270.71067811865476" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="284.8528137423857" cy="284.8528137423857" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="298.99494936611666" cy="298.99494936611666" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="313.1370849898476" cy="313.1370849898476" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="327.27922061357856" cy="327.27922061357856" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="341.4213562373095" cy="341.4213562373095" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="200" y1="400" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="200" cy="220" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="240" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="260" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="280" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="300" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="320" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="340" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="360" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="380" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="400" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="58.57864376269052" y1="341.4213562373095" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="185.85786437626905" cy="214.14213562373095" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="171.7157287525381" cy="228.2842712474619" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="157.57359312880715" cy="242.42640687119285" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="143.4314575050762" cy="256.5685424949238" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="129.28932188134524" cy="270.71067811865476" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="115.14718625761431" cy="284.8528137423857" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="101.00505063388336" cy="298.99494936611666" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="86.8629150101524" cy="313.1370849898476" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="72.72077938642146" cy="327.27922061357856" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="58.57864376269052" cy="341.4213562373095" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="0" y1="200.00000000000003" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="180" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="160" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="140" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="120" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="100" cy="200" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="80" cy="200.00000000000003" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="60" cy="200.00000000000003" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="40" cy="200.00000000000003" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="20" cy="200.00000000000003" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="0" cy="200.00000000000003" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="58.57864376269046" y1="58.57864376269052" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="185.85786437626905" cy="185.85786437626905" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="171.7157287525381" cy="171.7157287525381" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="157.57359312880715" cy="157.57359312880715" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="143.4314575050762" cy="143.4314575050762" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="129.28932188134524" cy="129.28932188134524" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="115.14718625761428" cy="115.14718625761431" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="101.00505063388333" cy="101.00505063388336" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="86.86291501015236" cy="86.8629150101524" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="72.72077938642141" cy="72.72077938642146" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="58.57864376269046" cy="58.57864376269052" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <text text-anchor="middle" alignment-baseline="after-edge" x="200" y="-40" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Programmation</text>
+                        <text text-anchor="start" alignment-baseline="after-edge" x="386.4213562373095" y="58.57864376269052" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Algorithmes</text>
+                        <text text-anchor="start" alignment-baseline="central" x="445" y="200" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Sys-Admin</text>
+                        <text text-anchor="start" alignment-baseline="before-edge" x="386.4213562373095" y="341.4213562373095" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Front-End</text>
+                        <text text-anchor="middle" alignment-baseline="before-edge" x="200" y="440" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Back-End</text>
+                        <text text-anchor="end" alignment-baseline="before-edge" x="13.578643762690518" y="341.4213562373095" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Statistiques</text>
+                        <text text-anchor="end" alignment-baseline="before-edge" x="-45" y="200.00000000000003" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Jeux</text>
+                        <text text-anchor="end" alignment-baseline="after-edge" x="13.578643762690461" y="58.57864376269052" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Réseau</text>
+                    </svg>
+                    <div class="textMinimal-01 fs4-01 mt10-01 capitalize-01">Compétences</div>
                 </div>
-                <div id="modal-tech" class="mt-2 mb-4 flex flex-wrap gap-2"></div>
-                <p id="modal-description" class="text-[#0079C1]"></p>
-                <h4 class="font-bold text-[#004AAD] mt-6 mb-2">Compétences clés démontrées :</h4>
-                <p id="modal-skills" class="text-[#0079C1]"></p>
+                <div class="textCenter-01 w29p-01 ph10-01">
+                    <svg style="overflow: visible;" width="100%" height="100%" viewBox="0 0 400 400" class="mv6-01">
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="20"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="40"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="60"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="80"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="100"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="120"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="140"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="160"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="180"></circle>
+                        <circle fill="none" stroke="rgb(170, 170, 170)" stroke-width="0.75" cx="200" cy="200" r="200"></circle>
+                        <path stroke-width="0" stroke="none" fill="var(--secondary-color)" d="M 200 89.99999999999999L 259.47048992011577 107.46211138857007L 254.57791972127112 175.07509921988682L 259.38928651285596 208.5388902963971L 283.13245317896843 272.03468073398136L 222.53860454731438 276.7594378891598L 180.27872102109993 267.1645081530148L 162.2125212822871 232.74303669726424L 140.61071348714404 208.5388902963971L 163.61472018581927 183.38339947992455L 178.3743673017761 166.34985868675275" style="transition: d 0.5s ease-in-out; opacity: 0.7;"></path>
+                        <g><line x1="200" y1="0" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="200" cy="180" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="160" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="140" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="120" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="100" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="80" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="60" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="40" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="20" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="200" cy="0" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="308.12816349111955" y1="31.749293433763768" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="210.81281634911196" cy="183.1749293433764" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="221.6256326982239" cy="166.34985868675275" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="232.43844904733587" cy="149.52478803012914" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="243.25126539644782" cy="132.6997173735055" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="254.06408174555978" cy="115.87464671688188" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="264.87689809467173" cy="99.04957606025827" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="275.68971444378366" cy="82.22450540363465" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="286.50253079289564" cy="65.39943474701101" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="297.31534714200757" cy="48.574364090387405" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="308.12816349111955" cy="31.749293433763768" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="381.9263990709037" y1="116.91699739962273" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="218.19263990709038" cy="191.69169973996227" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="236.38527981418073" cy="183.38339947992455" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="254.57791972127112" cy="175.07509921988682" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="272.77055962836147" cy="166.7667989598491" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="290.96319953545185" cy="158.45849869981137" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="309.15583944254223" cy="150.15019843977365" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="327.3484793496326" cy="141.8418981797359" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="345.54111925672294" cy="133.5335979196982" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="363.7337591638133" cy="125.22529765966046" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="381.9263990709037" cy="116.91699739962273" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="397.9642883761866" y1="228.462967654657" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="219.79642883761866" cy="202.8462967654657" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="239.59285767523733" cy="205.6925935309314" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="259.38928651285596" cy="208.5388902963971" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="279.18571535047465" cy="211.3851870618628" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="298.9821441880933" cy="214.2314838273285" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="318.7785730257119" cy="217.0777805927942" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="338.5750018633306" cy="219.92407735825992" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="358.37143070094925" cy="222.77037412372562" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="378.1678595385679" cy="225.6166708891913" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="397.9642883761866" cy="228.462967654657" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="351.14991487085166" y1="330.972146789057" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="215.11499148708518" cy="213.09721467890571" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="230.22998297417033" cy="226.1944293578114" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="245.3449744612555" cy="239.29164403671712" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="260.45996594834065" cy="252.3888587156228" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="275.57495743542586" cy="265.4860733945285" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="290.689948922511" cy="278.58328807343423" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="305.80494040959616" cy="291.6805027523399" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="320.9199318966813" cy="304.7777174312456" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="336.03492338376645" cy="317.87493211015135" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="351.14991487085166" cy="330.972146789057" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="256.3465113682859" y1="391.8985947228995" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="205.63465113682858" cy="219.18985947228995" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="211.2693022736572" cy="238.3797189445799" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="216.90395341048577" cy="257.56957841686983" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="222.53860454731438" cy="276.7594378891598" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="228.17325568414296" cy="295.94929736144974" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="233.80790682097154" cy="315.13915683373966" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="239.44255795780015" cy="334.32901630602964" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="245.07720909462876" cy="353.51887577831957" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="250.71186023145734" cy="372.7087352506095" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="256.3465113682859" cy="391.8985947228995" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="143.6534886317141" y1="391.8985947228995" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="194.36534886317142" cy="219.18985947228995" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="188.7306977263428" cy="238.3797189445799" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="183.09604658951423" cy="257.56957841686983" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="177.46139545268565" cy="276.7594378891598" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="171.82674431585707" cy="295.94929736144974" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="166.19209317902846" cy="315.13915683373966" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="160.55744204219988" cy="334.32901630602964" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="154.9227909053713" cy="353.5188757783196" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="149.2881397685427" cy="372.70873525060955" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="143.6534886317141" cy="391.8985947228995" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="48.85008512914837" y1="330.97214678905704" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="184.88500851291485" cy="213.09721467890571" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="169.77001702582967" cy="226.1944293578114" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="154.6550255387445" cy="239.29164403671712" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="139.54003405165935" cy="252.3888587156228" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="124.42504256457418" cy="265.4860733945285" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="109.31005107748902" cy="278.58328807343423" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="94.19505959040386" cy="291.6805027523399" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="79.0800681033187" cy="304.7777174312456" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="63.965076616233546" cy="317.87493211015135" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="48.85008512914837" cy="330.97214678905704" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="2.035711623813455" y1="228.46296765465704" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="180.20357116238134" cy="202.8462967654657" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="160.4071423247627" cy="205.69259353093142" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="140.61071348714404" cy="208.5388902963971" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="120.81428464952539" cy="211.3851870618628" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="101.01785581190673" cy="214.23148382732853" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="81.22142697428808" cy="217.07778059279423" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="61.424998136669416" cy="219.92407735825992" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="41.62856929905078" cy="222.77037412372562" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="21.832140461432118" cy="225.61667088919134" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="2.035711623813455" cy="228.46296765465704" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="18.0736009290963" y1="116.91699739962277" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="181.80736009290962" cy="191.69169973996227" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="163.61472018581927" cy="183.38339947992455" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="145.42208027872888" cy="175.07509921988682" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="127.22944037163852" cy="166.7667989598491" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="109.03680046454815" cy="158.4584986998114" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="90.84416055745777" cy="150.15019843977367" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="72.6515206503674" cy="141.84189817973595" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="54.458880743277035" cy="133.53359791969822" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="36.266240836186654" cy="125.2252976596605" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="18.0736009290963" cy="116.91699739962277" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <g><line x1="91.8718365088805" y1="31.74929343376374" x2="200" y2="200" stroke-width="0.75" stroke="rgb(170, 170, 170)"></line><circle cx="189.18718365088804" cy="183.17492934337636" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="178.3743673017761" cy="166.34985868675275" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="167.56155095266416" cy="149.52478803012912" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="156.7487346035522" cy="132.6997173735055" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="145.93591825444025" cy="115.87464671688187" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="135.12310190532833" cy="99.04957606025825" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="124.31028555621636" cy="82.22450540363461" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="113.49746920710442" cy="65.39943474701099" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="102.68465285799246" cy="48.57436409038738" fill="rgb(170, 170, 170)" r="1"></circle><circle cx="91.8718365088805" cy="31.74929343376374" fill="rgb(170, 170, 170)" r="0"></circle></g>
+                        <text text-anchor="middle" alignment-baseline="after-edge" x="200" y="-40" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Go</text>
+                        <text text-anchor="start" alignment-baseline="after-edge" x="353.12816349111955" y="31.749293433763768" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">JavaScript</text>
+                        <text text-anchor="start" alignment-baseline="after-edge" x="426.9263990709037" y="116.91699739962273" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Rust</text>
+                        <text text-anchor="start" alignment-baseline="before-edge" x="442.9642883761866" y="228.462967654657" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">C</text>
+                        <text text-anchor="start" alignment-baseline="before-edge" x="396.14991487085166" y="330.972146789057" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">HTML</text>
+                        <text text-anchor="start" alignment-baseline="before-edge" x="301.3465113682859" y="391.8985947228995" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">CSS</text>
+                        <text text-anchor="end" alignment-baseline="before-edge" x="98.65348863171411" y="391.8985947228995" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Unix</text>
+                        <text text-anchor="end" alignment-baseline="before-edge" x="3.8500851291483684" y="330.97214678905704" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Docker</text>
+                        <text text-anchor="end" alignment-baseline="before-edge" x="-42.964288376186545" y="228.46296765465704" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">SQL</text>
+                        <text text-anchor="end" alignment-baseline="after-edge" x="-26.9263990709037" y="116.91699739962277" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">Shell</text>
+                        <text text-anchor="end" alignment-baseline="after-edge" x="46.871836508880506" y="31.74929343376374" fill="var(--text-primary)" font-family="Inter, sans-serif" class="capitalize-01" font-size="16" font-weight="600">GraphQL</text>
+                    </svg>
+                    <div class="textMinimal-01 fs4-01 mt10-01 capitalize-01">Technologies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Mes projets</h2>
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="go">Go</button>
+                <button class="filter-btn" data-filter="rust">Rust</button>
+                <button class="filter-btn" data-filter="javascript">JavaScript</button>
+                <button class="filter-btn" data-filter="websockets">WebSockets</button>
+            </div>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contactez-moi</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Discutons de votre projet</h3>
+                    <p>Je suis toujours intéressé par de nouveaux défis et opportunités. N'hésitez pas à me contacter!</p>
+                    <div class="contact-methods">
+                        <a href="tel:0655903739" class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <span>0655903739</span>
+                        </a>
+                        <a href="mailto:bastayoussef2001@gmail.com" class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>bastayoussef2001@gmail.com</span>
+                        </a>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Casablanca, Sidi Moumen</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Votre email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="subject" placeholder="Sujet" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Basta Youssef. Tous droits réservés.</p>
+                <div class="social-links">
+                    <a href="https://github.com/2001basta" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/bastayoussef2001" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://leetcode.com/basta2001" class="social-link"><i class="cib-leetcode"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body">
+                <!-- Modal content will be populated by JavaScript -->
             </div>
         </div>
     </div>
-    
-    <script>
-    const projectsData = [
-            {id: 1, title: "Social Network", technologies: ["Go", "JS Framework", "SQLite", "Docker", "WebSockets"], description: "Backend en Go avec gestion d’authentification par sessions + cookies. Base de données SQLite avec migrations pour gérer la structure. Relations complexes (utilisateurs, followers, groupes, notifications). WebSockets pour le chat et les notifications en temps réel. Docker multi-container pour isoler frontend et backend.", skills: "Auth sécurisée, conception de base relationnelle, migrations DB, communication temps réel via WebSockets, conteneurisation."},
-            {id: 2, title: "Real-Time Forum", technologies: ["Go", "JavaScript", "WebSockets"], description: "Forum avec messagerie instantanée, backend en Go et frontend JS pur SPA. Gestion des WebSockets, sessions sécurisées, hashing des mots de passe. Notifications temps réel et optimisation du scroll.", skills: "Gestion du temps réel, authentification sécurisée, optimisation frontend, validation des inputs."},
-            {id: 3, title: "Mini-Framework", technologies: ["JavaScript"], description: "Framework maison sans React/Vue avec DOM virtuel, routing et gestion d’état global. Event handling personnalisé pour interactions utilisateurs.", skills: "Compréhension avancée des frameworks JS, gestion de l’état global, architecture modulaire, documentation."},
-            {id: 4, title: "Bomberman-DOM", technologies: ["JavaScript", "WebSockets"], description: "Jeu multijoueur dans le navigateur avec rendu DOM et animations 60 FPS. Synchronisation multi-joueurs via WebSockets, chat intégré et mécaniques de jeu complexes.", skills: "Programmation de jeux navigateur, optimisation DOM, logique temps réel, gestion des états joueurs."},
-            {id: 5, title: "0-Shell", technologies: ["Rust", "System Programming", "Unix"], description: "Shell Unix minimal avec parsing et exécution de commandes via syscalls. Gestion des processus, commandes classiques et erreurs système.", skills: "Programmation système bas niveau, gestion des processus Unix, sécurité mémoire via Rust."},
-            {id: 6, title: "Push-Swap", technologies: ["Go"], description: "Tri d’une pile d’entiers avec algorithmes optimisés (radix sort, quicksort adapté, insertion sort). Gestion des erreurs et minimisation des opérations.", skills: "Optimisation d’algorithmes, gestion des structures de données, résolution de problèmes complexe."},
-            {id: 7, title: "Lem-in", technologies: ["Go"], description: "Simulation de passage de fourmis avec parsing de fichier, algorithmes BFS et max flow. Optimisation des chemins, gestion des contraintes et erreurs.", skills: "Algorithmes avancés sur graphes, optimisation des flux, gestion des contraintes."},
-            {id: 8, title: "GraphQL API", technologies: ["JavaScript", "GraphQL"], description: "Création de profils utilisateurs avec queries GraphQL, authentification JWT. Requêtes complexes, hébergement Netlify/GitHub Pages.", skills: "Maîtrise GraphQL, authentification sécurisée JWT, visualisation de données dynamique."},
-            {id: 9, title: "Wget", technologies: ["Go"], description: "Reproduction de wget avec options avancées, HTTP requests, téléchargement asynchrone et parsing HTML.", skills: "Programmation réseau, concurrence, gestion fichiers et parsing HTML."},
-            {id: 10, title: "Net-Cat", technologies: ["Go", "TCP/UDP"], description: "Recréation de NetCat en architecture client-serveur. Serveur TCP multi-clients (max 10), écoute sur port spécifié (par défaut 8989). Envoi et réception de messages identifiés par timestamp et nom d’utilisateur. Historique des messages envoyé aux nouveaux clients. Notifications des clients rejoignant ou quittant le chat. Gestion obligatoire et validation des noms d’utilisateur.", skills: "TCP/UDP et gestion de sockets en Go. Concurrence avec goroutines, channels et mutexes. Gestion de l’état partagé et propagation des messages en temps réel. Formatage structuré des messages et notifications."},
-            {id: 11, title: "Smart-Road", technologies: ["Rust"], description: "Simulation de gestion intelligente d’intersections pour véhicules autonomes (AVs), sans feux de circulation. Algorithme de contrôle de trafic pour minimiser collisions et congestion. Animation dynamique des véhicules avec rotation et déplacement réaliste. Commandes clavier pour générer des véhicules de manière interactive et aléatoire. Statistiques en fin de simulation : vitesse max/min, temps max/min pour passer l’intersection, véhicules et quasi-accidents.", skills: "Programmation en Rust et utilisation de SDL2 pour animation. Algorithmique avancée pour gestion de trafic et sécurité. Simulation temps réel et manipulation d’événements. Mathématiques appliquées à la physique des véhicules et calculs de distance/temps. Conception et optimisation d’une interface interactive et visuelle."}
-    ];
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const projectGrid = document.getElementById('project-grid');
-        const projectFilters = document.getElementById('project-filters');
-        const modal = document.getElementById('project-modal');
-        const modalBackdrop = document.getElementById('modal-backdrop');
-        const modalContent = document.getElementById('modal-content');
-        const modalClose = document.getElementById('modal-close');
-        
-        function renderProjects(filter = 'all') {
-            projectGrid.innerHTML = '';
-            const filteredProjects = filter === 'all' ? projectsData : projectsData.filter(p => p.technologies.some(t => t.toLowerCase().includes(filter.toLowerCase())));
-
-            filteredProjects.forEach(project => {
-                const card = document.createElement('div');
-                card.className = 'card p-6 flex flex-col';
-                card.innerHTML = `
-                    <h3 class="text-xl font-bold text-[#004AAD] mb-2">${project.title}</h3>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        ${project.technologies.map(tech => `<span class="bg-[#E0F2FE] text-[#0079C1] text-xs font-semibold px-2.5 py-1 rounded-full">${tech}</span>`).join('')}
-                    </div>
-                    <p class="text-[#0079C1] text-sm flex-grow mb-4">${project.description.substring(0, 100)}...</p>
-                    <button class="open-modal-btn mt-auto text-white bg-[#0079C1] hover:bg-[#004AAD] font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-300" data-id="${project.id}">Voir Détails</button>
-                `;
-                projectGrid.appendChild(card);
-            });
-        }
-
-        projectFilters.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') {
-                const currentActive = projectFilters.querySelector('.filter-btn.active');
-                if (currentActive) {
-                    currentActive.classList.remove('active');
-                }
-                e.target.classList.add('active');
-                renderProjects(e.target.dataset.filter);
-            }
-        });
-
-        const openModal = (projectId) => {
-            const project = projectsData.find(p => p.id == projectId);
-            if (!project) return;
-            
-            document.getElementById('modal-title').textContent = project.title;
-            document.getElementById('modal-tech').innerHTML = project.technologies.map(tech => `<span class="bg-[#E0F2FE] text-[#0079C1] text-sm font-semibold px-3 py-1 rounded-full">${tech}</span>`).join('');
-            document.getElementById('modal-description').textContent = project.description;
-            document.getElementById('modal-skills').textContent = project.skills;
-
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modalBackdrop.style.opacity = '1';
-                modalContent.style.opacity = '1';
-                modalContent.style.transform = 'scale(1)';
-            }, 10);
-        };
-
-        const closeModal = () => {
-            modalBackdrop.style.opacity = '0';
-            modalContent.style.opacity = '0';
-            modalContent.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        };
-
-        projectGrid.addEventListener('click', e => {
-            if (e.target.classList.contains('open-modal-btn')) {
-                openModal(e.target.dataset.id);
-            }
-        });
-
-        modalClose.addEventListener('click', closeModal);
-        modalBackdrop.addEventListener('click', closeModal);
-
-        const techCounts = projectsData.flatMap(p => p.technologies).reduce((acc, tech) => {
-            const cleanTech = tech.replace('JS Framework', 'JavaScript').replace('System Programming', 'Sys Prog');
-            acc[cleanTech] = (acc[cleanTech] || 0) + 1;
-            return acc;
-        }, {});
-
-        const sortedTech = Object.entries(techCounts).sort(([,a],[,b]) => b-a);
-        const chartLabels = sortedTech.map(item => item[0]);
-        const chartData = sortedTech.map(item => item[1]);
-        
-        const ctx = document.getElementById('skillsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: chartLabels,
-                datasets: [{
-                    label: 'Utilisation dans les projets',
-                    data: chartData,
-                    backgroundColor: '#41A5D3',
-                    borderColor: '#0079C1',
-                    borderWidth: 2,
-                    borderRadius: 5,
-                    borderSkipped: false,
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { beginAtZero: true, ticks: { stepSize: 1, color: '#0079C1' }, grid: { color: '#E0F2FE' } },
-                    y: { ticks: { color: '#004AAD', font: { weight: '600' } }, grid: { display: false } }
-                },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#004AAD',
-                        titleFont: { size: 16, weight: 'bold' },
-                        bodyFont: { size: 14 },
-                        padding: 12,
-                        cornerRadius: 8,
-                        callbacks: {
-                            title: function(tooltipItems) {
-                                const item = tooltipItems[0];
-                                let label = item.chart.data.labels[item.dataIndex];
-                                return Array.isArray(label) ? label.join(' ') : label;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        
-        renderProjects();
-    });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
